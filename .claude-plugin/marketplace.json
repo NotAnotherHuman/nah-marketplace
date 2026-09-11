@@ -1,0 +1,11 @@
+{
+  "name": "nah",
+  "owner": { "name": "NotAnotherHuman" },
+  "plugins": [
+    {
+      "name": "nah-gamedev",
+      "source": "./plugins/nah-gamedev",
+      "description": "Build a game for the NotAnotherHuman hub, from idea to a branch the studio can integrate."
+    }
+  ]
+}

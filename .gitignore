@@ -1,0 +1,17 @@
+# Nothing built here belongs in git, and a few things must never be.
+node_modules/
+.DS_Store
+*.log
+
+# Credentials — the plugin repo has no reason to hold any of these, and this
+# line is cheaper than the incident.
+.env
+.env.*
+*.p8
+*.pem
+*.key
+*.keystore
+*.jks
+*.p12
+*.cer
+*.mobileprovision
