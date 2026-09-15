@@ -8,7 +8,7 @@ You build a **complete, independent game**. We do the hub integration.
 ## What you need
 
 1. **Claude Code**, with a subscription that covers Opus and Sonnet. A full
-   `/new-game` run measured around **$12** in practice.
+   `/nah-gamedev:new-game` run measured around **$12** in practice.
 2. **A game starter checkout.** The plugin ships the *flow* — the commands, the
    agents, the guard hooks. It cannot ship the *substrate*: the integration
    contract, `game-kit`, the shared sprite library and the `ugc-studio` scripts
@@ -19,11 +19,11 @@ You build a **complete, independent game**. We do the hub integration.
    one to you. We hand them to people, not to the internet — that is the only
    gatekeeping there is, and it exists because the substrate is the hub.
 
-Without the starter, `/new-game` stops at step 0 and tells you so.
+Without the starter, `/nah-gamedev:new-game` stops at step 0 and tells you so.
 
 Because starters are hand-issued, yours may have no git remote. That is expected
 for now: build on `ugc/<gameId>`, commit, and tell us the branch is ready —
-`/submit-game` does everything except the push, and we import from your checkout
+`/nah-gamedev:submit-game` does everything except the push, and we import from your checkout
 directly.
 
 ## Install
@@ -49,17 +49,17 @@ From inside your starter checkout, on a fresh branch:
 
 ```
 git checkout -b ugc/<gameId>
-/new-game a game about untangling yarn
+/nah-gamedev:new-game a game about untangling yarn
 ```
 
-`/new-game` drives the whole pipeline: vision (you're in the loop), architecture,
+`/nah-gamedev:new-game` drives the whole pipeline: vision (you're in the loop), architecture,
 art selection, a parallel core/juice build, three adversarial QA agents, and a
 review gate where you look at real screenshots before anything is called done.
 
 When it's finished:
 
 ```
-/submit-game
+/nah-gamedev:submit-game
 ```
 
 That checks the boundary, writes `HANDOFF.md` from your game's own files, and

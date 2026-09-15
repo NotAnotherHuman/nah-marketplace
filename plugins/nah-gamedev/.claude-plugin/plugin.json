@@ -1,7 +1,7 @@
 {
   "name": "nah-gamedev",
   "displayName": "NotAnotherHuman game dev",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "Build a contract-compliant game for the NotAnotherHuman hub. Vision, architecture, build, adversarial QA, and a handoff the studio integrates from.",
   "author": {
     "name": "NotAnotherHuman"

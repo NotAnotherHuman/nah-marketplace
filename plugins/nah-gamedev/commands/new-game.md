@@ -8,6 +8,21 @@ Everything a game must satisfy lives in `Documentation/INTEGRATION_CONTRACT.md`.
 
 Idea / seed from the human: **$ARGUMENTS**
 
+## Open with a question, not a report
+
+**If the seed above is empty, ask what they want to build — and say nothing else.**
+
+One short question. Not a status report, not a checklist, not a list of things to
+fix first. Someone who has just opened this wants to talk about their game; a
+wall of diagnostics as the opening line reads as "this is broken" when nothing
+is. They arrive here straight from `./nah start`, which has already told them
+their machine is ready — contradicting that in your first breath is worse than
+useless.
+
+Run step 0 **after** you have the idea, and mention it only if something actually
+blocks. A passing check is not news. If something does block, say the one thing
+that blocks and what fixes it — not the whole inventory of what passed.
+
 ## The one rule that shapes everything else
 
 **You build a game. You do not touch the hub.**
@@ -20,7 +35,17 @@ Run `node ugc-studio/scripts/check-boundary.js <gameId>` any time you are unsure
 
 ## Pipeline
 
-**0. Confirm the substrate.** Run `node ugc-studio/scripts/check-boundary.js --doctor`. It verifies you have the contract, `game-kit`, the sprite library and a clean tree. If anything is missing, stop and tell the human what to fix — do not improvise around it.
+**0. Confirm the substrate, quietly.** Run `node ugc-studio/scripts/check-boundary.js --doctor`. It verifies you have the contract, `game-kit`, the sprite library and a clean tree. Say nothing if it passes. If something is missing, stop and tell the human the one thing that blocks and how to fix it — do not improvise around it, and do not recite what passed.
+
+**0b. Settle the game id, then cut the branch.** Agree an id with the human — lowercase letters and digits, starting with a letter, 3–24 characters, no hyphens (it becomes a package directory, a branch, and part of a factory name). Then run:
+
+```
+node ugc-studio/scripts/start-game.js <gameId>
+```
+
+**You create the branch, not the human.** Never ask them to run `git checkout -b`, and never run it yourself — that script is the only sanctioned checkout in this pipeline. It cuts `ugc/<gameId>` from `main` and refuses the four cases that quietly go wrong: an unusable id, an existing branch or package, uncommitted tracked changes that would follow you into the handoff, and branching off another game. If it refuses, relay its reason; it has already explained the fix.
+
+Never run `git checkout` on an existing branch, `git switch`, `git stash` or `git reset --hard`. Untracked work has been destroyed that way three times here. `git add` and `git commit` on your own branch are always fine.
 
 **1. Vision (interactive).** Invoke `game-vision` with the seed. Let the human iterate until they lock a concept. It saves `packages/<gameId>/DESIGN.md`. Do not continue until the human approves.
 
@@ -58,7 +83,7 @@ Dispatch the owning builder for each failure, then re-run only the failed agent.
 
 **7. Review gate (interactive).** Show the human the screenshots. Not a summary of the screenshots — the frames. Let them iterate via `game-vision`, apply changes through the relevant builder, re-QA.
 
-**8. Hand off.** Run `/submit-game`. It writes `HANDOFF.md`, checks the boundary, and puts everything on `ugc/<gameId>`.
+**8. Hand off.** Run `/nah-gamedev:submit-game`. It writes `HANDOFF.md`, checks the boundary, and puts everything on `ugc/<gameId>`.
 
 ## Rules for you, the orchestrator
 
