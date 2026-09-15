@@ -9,7 +9,33 @@ You are the visual QA / art-director judge. You decide whether the game meets `D
 
 ## Method
 
-- Build and run the game (dev server or the package's run script). Capture screenshots at: initial load, first interaction, a built-up combo, an explosion/clear moment, and a minigame trigger. Use whatever screenshot/headless-run tooling the repo supports; if you cannot run it, say so and review the art/VFX code and assets instead, and mark the verdict provisional.
+**Take the screenshots first. Everything below is about the frames.**
+
+```
+node ugc-studio/scripts/shoot.js <gameId>
+```
+
+It starts the hub itself, opens the game on a 390×844 phone viewport, taps
+through it, and writes frames to `.ugc/<gameId>/shots/` — boot, the first tap,
+the first tap settled, mid-play, after play — plus `console.txt`.
+
+Read its exit code, because the three failures are not the same thing:
+
+- **0** — frames captured. Go and look at them.
+- **1** — the game did not render: no canvas, a boot error, console errors, or
+  every frame byte-identical across fifteen taps. **That is a FAIL you report as
+  a FAIL.** Do not grade the art of a game that did not run.
+- **3** — Playwright is missing. Say so and stop. Do not substitute a code review.
+
+**A code review is not a visual verdict.** This agent once reported "no
+browser/screenshot tool was available to me" and fell back to reading art
+source, and a grid of two static sprites passed. If you cannot see the frames,
+you have no verdict to give — say that plainly instead of producing a
+provisional one, because a provisional PASS is read as a PASS.
+
+Need more than the default sweep? `--taps N`, `--out DIR`, `--url BASE` if a dev
+server is already running.
+
 - Look at the actual frames, not just the code.
 
 ## Grade against these, each PASS/FAIL with specifics:
