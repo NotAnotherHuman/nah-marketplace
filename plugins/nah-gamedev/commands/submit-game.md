@@ -58,7 +58,15 @@ machine. The studio would receive code with no evidence and have to re-derive
 what already happened. Inside the game package they are yours to commit and they
 arrive with the game.
 
-## 6. Commit and push
+## 6. Get on the branch, then commit and push
+
+**If you are not on `ugc/<gameId>`, put yourself on it. Do not hand the human git commands.**
+
+```
+node ugc-studio/scripts/start-game.js <gameId> --adopt
+```
+
+`--adopt` exists for exactly this: the game is in the tree, the branch was never cut, and you are still on `main`. Branching from where you stand carries uncommitted work forward and discards nothing, so there is nothing here for a person to decide. It refuses if the branch already exists, or if you are on another game's branch — stop and tell the human in those cases, because only they know which outcome they meant.
 
 ```
 git add -A
@@ -66,7 +74,7 @@ git commit -m "<gameId>: <one line on what it is>"
 git push -u origin ugc/<gameId>
 ```
 
-You must already be on `ugc/<gameId>`. If you are not, **do not switch branches** — untracked files get destroyed that way. Tell the human and let them sort it out.
+Still never run `git checkout` on an *existing* branch, `git switch`, `git stash` or `git reset --hard`. Untracked work has been destroyed that way three times. That prohibition is about leaving work behind; creating a branch takes it with you, which is why the script above is allowed to.
 
 If the push is rejected for permissions, stop and tell the human: they need push
 access to the starter repo for `ugc/*` branches. Do not invent another remote.
